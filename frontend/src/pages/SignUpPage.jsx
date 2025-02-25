@@ -1,7 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
-import { Eye, EyeOff, Lock, Mail, MessageSquare, User } from 'lucide-react';
+import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import AuthImagePattern from '../components/AuthImagePattern';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -107,9 +109,38 @@ const SignUpPage = () => {
             </div>
 
 
+            {/* SIGNUP BUTTON */}
+            <button type="submit" className="btn btm-primary w-full" disabled={isSigningUp}>
+              {isSigningUp ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </button>
         </form>
+
+        {/* ALREADY HAVE AN ACCOUNT */}
+        <div className="text-center">
+          <p className="text-base-content/60">
+          Already have an account?{" "}
+          <Link to="/login" className="link link-primary">
+              Sign In
+          </Link>
+          </p>
+        </div>
       </div>
     </div>
+
+    {/* RIGHT SIDE */}
+              
+    <AuthImagePattern 
+      title="Join our community"
+      subtitle="Connect with friends, share moments, and stay in touch with your loved ones"
+    />
+
   </div>
 };
 
