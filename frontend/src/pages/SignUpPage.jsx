@@ -85,7 +85,7 @@ const SignUpPage = () => {
                   className={`input input-bordered w-full pl-10`}
                   placeholder="you@example.com"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData({...formData, email: e.target.value.toLowerCase() })}
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ const SignUpPage = () => {
 
 
             {/* SIGNUP BUTTON */}
-            <button type="submit" className="btn btm-primary w-full" disabled={isSigningUp}>
+            <button type="submit" className="btn btn-primary w-full" disabled={isSigningUp}>
               {isSigningUp ? (
                 <>
                   <Loader2 className="size-5 animate-spin" />
