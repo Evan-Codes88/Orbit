@@ -8,7 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 
 import { Routes, Route, Navigate } from 'react-router';
 import { useAuthStore } from './store/useAuthStore';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { Loader } from 'lucide-react';
 import { Toaster } from "react-hot-toast";
