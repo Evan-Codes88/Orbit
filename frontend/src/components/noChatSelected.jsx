@@ -11,14 +11,14 @@ const NoChatSelected = () => {
               className="w-16 h-16 rounded-2xl bg-[#2A293A] flex items-center
              justify-center animate-bounce"
             >
-              <MessageSquare className="w-8 h-8 text-[#FFB86C]" />
+              <MessageSquare className="w-8 h-8 text-[#E9A5F1]" />
             </div>
           </div>
         </div>
 
         {/* Welcome Text */}
-        <h2 className="text-2xl font-bold text-[#FFB86C]">Welcome to Orbit!</h2>
-        <p className="text-[#A1A1A1]">
+        <h2 className="text-2xl font-bold text-[#E9A5F1]">Welcome to Orbit!</h2>
+        <p className="text-[#E9A5F1]">
             Select a conversation to launch your chat mission!
         </p>
       </div>

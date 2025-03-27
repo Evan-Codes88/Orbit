@@ -19,8 +19,8 @@ const Sidebar = () => {
     <aside className="h-full w-20 lg:w-72 border-r border-[#2A293A] flex flex-col transition-all duration-200 bg-[#1E1D2D]">
         <div className="border-b border-[#2A293A] w-full p-5 bg-[#1E1D2D]">
             <div className="flex items-center gap-2 text-[#E0E0E0]">
-                <Users className="size-6 text-[#8A86C1]" />
-                <span className="font-medium hidden lg:block">Contacts</span>
+                <Users className="size-6 text-[#E9A5F1]" />
+                <span className="font-medium hidden lg:block text-[#E9A5F1]">Contacts</span>
             </div>
                 {/* TODO: Online toggle filter */}
             </div>
@@ -52,8 +52,8 @@ const Sidebar = () => {
 
                 {/* User info - only visible on larger screens */}
                 <div className="hidden lg:block text-left min-w-0">
-                    <div className="font-medium truncate text-[#F5F5F5]">{user.fullName}</div>
-                    <div className="text-sm text-[#9FA0B2]">
+                    <div className="font-medium truncate text-[#E9A5F1]">{user.fullName}</div>
+                    <div className="text-sm text-[red]">
                     {onlineUsers.includes(user._id) ? "Online" : "Offline"}
                     </div>
                 </div>

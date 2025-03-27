@@ -21,7 +21,7 @@ const ChatHeader = () => {
           {/* User Info */}
           <div className="text-sm">
             <h3 className="font-medium text-[#F5F5F5] truncate">{selectedUser.fullName}</h3>
-            <p className={`text-xs ${onlineUsers.includes(selectedUser._id) ? "text-green-500" : "text-[#9FA0B2]"}`}>
+            <p className={`text-xs ${onlineUsers.includes(selectedUser._id) ? "text-green-500" : "text-[red]"}`}>
               {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
             </p>
           </div>
