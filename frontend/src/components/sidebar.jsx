@@ -20,13 +20,15 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-20 lg:w-72 border-r border-[#3E3C4B] flex flex-col transition-all duration-200 bg-[#1E1D2D] text-white">
-      <div className="border-b border-[#3E3C4B] w-full p-5">
+    <aside className="h-full w-20 lg:w-72 border-r border-[#4C4A73] flex flex-col transition-all duration-200 bg-[#1E1D2D]">
+      <div className="border-b border-[#4C4A73] w-full p-5">
         <div className="flex items-center gap-2">
-          <Users className="size-6 text-[#BB86FC]" />
-          <span className="font-medium hidden lg:block">Contacts</span>
+          <Users className="size-6 text-[#E9A5F1]" />
+          <span className="font-medium hidden lg:block text-[#E9A5F1]">Contacts</span>
         </div>
-        <div className="mt-3 hidden lg:flex items-center gap-2">
+
+        {/* Online filter toggle */}
+        <div className="mt-3 hidden lg:flex items-center gap-2 text-[#E9A5F1]">
           <label className="cursor-pointer flex items-center gap-2">
             <input
               type="checkbox"
@@ -34,7 +36,7 @@ const Sidebar = () => {
               onChange={(e) => setShowOnlineOnly(e.target.checked)}
               className="checkbox checkbox-sm"
             />
-            <span className="text-sm text-[#BB86FC]">Show online only</span>
+            <span className="text-sm">Show online only</span>
           </label>
           <span className="text-xs text-zinc-500">({onlineUsers.length - 1} online)</span>
         </div>
@@ -47,8 +49,8 @@ const Sidebar = () => {
             onClick={() => setSelectedUser(user)}
             className={`
               w-full p-3 flex items-center gap-3
-              hover:bg-[#3E3C4B] transition-colors
-              ${selectedUser?._id === user._id ? "bg-[#3E3C4B] ring-1 ring-[#BB86FC]" : ""}
+              hover:bg-[#4C4A73] transition-colors
+              ${selectedUser?._id === user._id ? "bg-[#4C4A73] ring-1 ring-[#4C4A73]" : ""}
             `}
           >
             <div className="relative mx-auto lg:mx-0">
@@ -65,8 +67,9 @@ const Sidebar = () => {
               )}
             </div>
 
+            {/* User info - only visible on larger screens */}
             <div className="hidden lg:block text-left min-w-0">
-              <div className="font-medium truncate">{user.fullName}</div>
+              <div className="font-medium truncate text-[#E9A5F1]">{user.fullName}</div>
               <div className="text-sm text-zinc-400">
                 {onlineUsers.includes(user._id) ? "Online" : "Offline"}
               </div>

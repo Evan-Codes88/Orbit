@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,25 +10,29 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
-
+  const [errors, setErrors] = useState({});
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-    if (!formData.fullName.trim()) return toast.error("Full name is required");
-    if (!formData.email.trim()) return toast.error("Email is required");
-    if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email format");
-    if (!formData.password) return toast.error("Password is required");
-    if (formData.password.length < 6) return toast.error("Password must be at least 6 characters");
+    const newErrors = {};
+    
+    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email format";
+    if (!formData.password) newErrors.password = "Password is required";
+    if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
 
-    return true;
+    setErrors(newErrors);
+    
+    return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const success = validateForm();
-
-    if (success === true) signup(formData);
+    const isValid = validateForm();
+    
+    if (isValid) signup(formData);
   };
 
   return (
@@ -46,8 +49,8 @@ const SignUpPage = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="form-control">
-            <label className="label">
+          <fieldset className="form-control">
+            <label className="label" htmlFor="fullName">
               <span className="label-text font-medium pb-2 text-white">Full Name</span>
             </label>
             <div className="relative">
@@ -56,16 +59,22 @@ const SignUpPage = () => {
               </div>
               <input
                 type="text"
+                id="fullName"
                 className="input border-none w-full pl-10 text-white bg-[#3E3C4B]"
                 placeholder="John Doe"
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                aria-invalid={errors.fullName ? "true" : "false"}
+                aria-describedby="fullNameError"
               />
             </div>
-          </div>
+            {errors.fullName && (
+              <p id="fullNameError" className="text-sm text-red-500">{errors.fullName}</p>
+            )}
+          </fieldset>
 
-          <div className="form-control">
-            <label className="label">
+          <fieldset className="form-control">
+            <label className="label" htmlFor="email">
               <span className="label-text font-medium pb-2 text-white">Email</span>
             </label>
             <div className="relative">
@@ -74,16 +83,22 @@ const SignUpPage = () => {
               </div>
               <input
                 type="email"
+                id="email"
                 className="input border-none w-full pl-10 text-white bg-[#3E3C4B]"
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                aria-invalid={errors.email ? "true" : "false"}
+                aria-describedby="emailError"
               />
             </div>
-          </div>
+            {errors.email && (
+              <p id="emailError" className="text-sm text-red-500">{errors.email}</p>
+            )}
+          </fieldset>
 
-          <div className="form-control">
-            <label className="label">
+          <fieldset className="form-control">
+            <label className="label" htmlFor="password">
               <span className="label-text font-medium pb-2 text-white">Password</span>
             </label>
             <div className="relative">
@@ -92,15 +107,19 @@ const SignUpPage = () => {
               </div>
               <input
                 type={showPassword ? "text" : "password"}
+                id="password"
                 className="input border-none w-full pl-10 text-white bg-[#3E3C4B]"
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                aria-invalid={errors.password ? "true" : "false"}
+                aria-describedby="passwordError"
               />
               <button
                 type="button"
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label="Toggle password visibility"
               >
                 {showPassword ? (
                   <EyeOff className="size-5 text-[#BB86FC]" />
@@ -109,7 +128,10 @@ const SignUpPage = () => {
                 )}
               </button>
             </div>
-          </div>
+            {errors.password && (
+              <p id="passwordError" className="text-sm text-red-500">{errors.password}</p>
+            )}
+          </fieldset>
 
           <button
             type="submit"

@@ -7,32 +7,32 @@ const ChatHeader = () => {
   const { onlineUsers } = useAuthStore();
 
   return (
-    <div className="border-b border-[#2A293A] w-full p-3 bg-[#1E1D2D]">
-      <div className="flex items-center justify-between text-[#E0E0E0]">
-        {/* User Info Section */}
-        <div className="flex items-center gap-2">
+    <div className="p-2.5 border-b border-[#4C4A73] bg-[#1E1D2D]">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
           {/* Avatar */}
           <div className="avatar">
-            <div className="size-10 rounded-full overflow-hidden border border-[#8A86C1]">
+            <div className="size-10 rounded-full relative">
               <img src={selectedUser.profilePic || "/avatar.png"} alt={selectedUser.fullName} />
             </div>
           </div>
 
-          {/* User Info */}
-          <div className="text-sm">
-            <h3 className="font-medium text-[#F5F5F5] truncate">{selectedUser.fullName}</h3>
-            <p className={`text-xs ${onlineUsers.includes(selectedUser._id) ? "text-green-500" : "text-[red]"}`}>
-              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+          {/* User info */}
+          <div>
+            <h3 className="font-medium text-[#E9A5F1]">{selectedUser.fullName}</h3>
+            <p className="text-sm text-base-content/70">
+              {onlineUsers.includes(selectedUser._id) ? (
+                <span className="text-green-500">Online</span>
+              ) : (
+                <span className="text-zinc-500">Offline</span>
+              )}
             </p>
           </div>
         </div>
 
-        {/* Close Button */}
-        <button 
-          onClick={() => setSelectedUser(null)} 
-          className="p-2 rounded-full hover:bg-[#2A293A] transition-colors"
-        >
-          <X className="size-6 text-[#8A86C1] hover:text-[#F5F5F5] transition-colors" />
+        {/* Close button */}
+        <button onClick={() => setSelectedUser(null)} className="text-[#E9A5F1] hover:text-[#4C4A73]">
+          <X />
         </button>
       </div>
     </div>

@@ -59,11 +59,11 @@ const MessageInput = () => {
             />
             <button
               onClick={removeImage}
-              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#2A293A] text-[#E0E0E0] hover:text-[#F5F5F5] transition-colors
-              flex items-center justify-center"
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#2A293A] text-[#E0E0E0] hover:text-[#F5F5F5] transition-colors flex items-center justify-center"
               type="button"
+              aria-label="Remove image"
             >
-              <X className="size-4" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -78,28 +78,36 @@ const MessageInput = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+          
+          {/* Image file input */}
           <input
             type="file"
             accept="image/*"
             className="hidden"
             ref={fileInputRef}
             onChange={handleImageChange}
+            aria-label="Upload image"
           />
 
+          {/* Image button */}
           <button
             type="button"
-            className="w-11 h-11 flex items-center justify-center rounded-full bg-[#2A293A] text-[#8A86C1] hover:bg-[#3B3A4E] hover:text-[#F5F5F5] transition-colors"
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-[#2A293A] text-[#8A86C1] hover:bg-[#3B3A4E] hover:text-[#F5F5F5] transition-colors"
             onClick={() => fileInputRef.current?.click()}
+            aria-label="Add image"
           >
-            <Image size={22} />
+            <Image size={24} />
           </button>
         </div>
+
+        {/* Send message button */}
         <button
           type="submit"
-          className="w-11 h-11 flex items-center justify-center rounded-full bg-[#8A86C1] text-[#1E1D2D] hover:bg-[#A29FD6] transition-colors disabled:opacity-50"
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-[#8A86C1] text-[#1E1D2D] hover:bg-[#A29FD6] transition-colors disabled:opacity-50"
           disabled={!text.trim() && !imagePreview}
+          aria-label="Send message"
         >
-          <Send size={22} />
+          <Send size={24} />
         </button>
       </form>
     </div>
