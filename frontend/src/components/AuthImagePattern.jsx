@@ -24,8 +24,8 @@ const AuthImagePattern = ({ title, subtitle }) => {
 
 // PropTypes validation
 AuthImagePattern.propTypes = {
-    title: PropTypes.string.isRequired,   // Validate that title is a string and required
-    subtitle: PropTypes.string.isRequired, // Validate that subtitle is a string and required
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
 };
 
 export default AuthImagePattern;
