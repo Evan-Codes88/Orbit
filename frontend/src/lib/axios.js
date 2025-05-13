@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:5001/api",
+    baseURL: "https://orbit-lq87.onrender.com",
     withCredentials: true,
 })
