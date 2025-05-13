@@ -7,9 +7,12 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://orbit-lq87.onrender.com",
+    origin: [
+      'https://orbit-chat.netlify.app',   // Frontend URL (Netlify)
+      'https://orbit-lq87.onrender.com',   // Backend URL (Render)
+    ],
     methods: ["GET", "POST"],
-    credentials: true,
+    credentials: true, // Allow credentials (cookies)
   },
 });
 
