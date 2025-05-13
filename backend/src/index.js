@@ -17,7 +17,7 @@ connectDB().then(() => {
     app.use(express.json());
     app.use(cookieParser());
     app.use(cors({
-      origin: 'https://orbit-chat.netlify.app', // Remove trailing slash
+      origin: 'https://orbit-chat.netlify.app',
       credentials: true,
     }));
   
