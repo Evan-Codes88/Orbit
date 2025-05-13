@@ -20,14 +20,15 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-20 lg:w-72 border-r border-[#4C4A73] flex flex-col transition-all duration-200 bg-[#1E1D2D]">
-      <div className="border-b border-[#4C4A73] w-full p-5">
+    <aside className="h-full w-16 sm:w-20 lg:w-72 border-r border-[#4C4A73] flex flex-col transition-all duration-200 bg-[#1E1D2D]">
+      {/* Top section */}
+      <div className="border-b border-[#4C4A73] w-full px-2 sm:px-4 py-3 sm:py-5">
         <div className="flex items-center gap-2">
-          <Users className="size-6 text-[#E9A5F1]" />
+          <Users className="size-5 sm:size-6 text-[#E9A5F1]" />
           <span className="font-medium hidden lg:block text-[#E9A5F1]">Contacts</span>
         </div>
 
-        {/* Online filter toggle */}
+        {/* Online filter toggle - hidden on small screens */}
         <div className="mt-3 hidden lg:flex items-center gap-2 text-[#E9A5F1]">
           <label className="cursor-pointer flex items-center gap-2">
             <input
@@ -42,32 +43,31 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="overflow-y-auto w-full py-3">
+      {/* User List */}
+      <div className="overflow-y-auto w-full py-2 sm:py-3 px-1 sm:px-2">
         {filteredUsers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
             className={`
-              w-full p-3 flex items-center gap-3
+              w-full p-2 sm:p-3 flex items-center gap-3
               hover:bg-[#4C4A73] transition-colors
               ${selectedUser?._id === user._id ? "bg-[#4C4A73] ring-1 ring-[#4C4A73]" : ""}
             `}
           >
+            {/* Avatar */}
             <div className="relative mx-auto lg:mx-0">
               <img
                 src={user.profilePic || "/avatar.png"}
                 alt={user.name}
-                className="size-12 object-cover rounded-full"
+                className="w-10 h-10 sm:size-12 object-cover rounded-full"
               />
               {onlineUsers.includes(user._id) && (
-                <span
-                  className="absolute bottom-0 right-0 size-3 bg-green-500 
-                  rounded-full ring-2 ring-zinc-900"
-                />
+                <span className="absolute bottom-0 right-0 size-2.5 sm:size-3 bg-green-500 rounded-full ring-2 ring-zinc-900" />
               )}
             </div>
 
-            {/* User info - only visible on larger screens */}
+            {/* Only show name on large screens */}
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate text-[#E9A5F1]">{user.fullName}</div>
               <div className="text-sm text-zinc-400">
@@ -77,8 +77,9 @@ const Sidebar = () => {
           </button>
         ))}
 
+        {/* Fallback message */}
         {filteredUsers.length === 0 && (
-          <div className="text-center text-zinc-500 py-4">No online users</div>
+          <div className="text-center text-zinc-500 py-4 text-sm">No online users</div>
         )}
       </div>
     </aside>

@@ -44,18 +44,20 @@ const ChatContainer = () => {
   }
 
   return (
-    <section className="flex-1 flex flex-col overflow-auto bg-[#1E1D2D] text-[#E9A5F1]">
+    <section className="flex-1 flex flex-col overflow-hidden bg-[#1E1D2D] text-[#E9A5F1]">
       <ChatHeader />
 
-      <article className="flex-1 overflow-y-auto p-4 space-y-4">
+      {/* Messages Area */}
+      <article className="flex-1 overflow-y-auto px-2 py-4 sm:p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message._id}
             className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
             ref={messageEndRef}
           >
+            {/* Avatar */}
             <figure className="chat-image avatar">
-              <div className="size-10 rounded-full border border-[#4C4A73]">
+              <div className="w-8 h-8 sm:size-10 rounded-full border border-[#4C4A73]">
                 <img
                   src={
                     message.senderId === authUser._id
@@ -66,24 +68,31 @@ const ChatContainer = () => {
                 />
               </div>
             </figure>
+
+            {/* Timestamp */}
             <header className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">{formatMessageTime(message.createdAt)}</time>
+              <time className="text-xs opacity-50 ml-1">
+                {formatMessageTime(message.createdAt)}
+              </time>
             </header>
-            <div className="chat-bubble flex flex-col">
+
+            {/* Message Bubble */}
+            <div className="chat-bubble max-w-[85%] sm:max-w-[70%] flex flex-col">
               {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
+                  className="w-full max-w-xs sm:max-w-[200px] rounded-md mb-2"
                 />
               )}
-              {message.text && <p>{message.text}</p>}
+              {message.text && <p className="break-words">{message.text}</p>}
             </div>
           </div>
         ))}
       </article>
 
-      <footer>
+      {/* Message Input */}
+      <footer className="p-2 sm:p-4">
         <MessageInput />
       </footer>
     </section>
