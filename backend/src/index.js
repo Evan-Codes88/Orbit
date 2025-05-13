@@ -10,19 +10,26 @@ import { app, server } from './lib/socket.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({
-    origin: "https://orbit-chat.netlify.app/",
-    credentials: true
-}));
-
-app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes);
-
-server.listen(PORT, () => {
-    console.log("Server is running on PORT: " + PORT);
-    connectDB()
-})
+connectDB().then(() => {
+    // Middleware
+    app.use(express.json());
+    app.use(cookieParser());
+    app.use(cors({
+      origin: 'https://orbit-chat.netlify.app', // Remove trailing slash
+      credentials: true,
+    }));
+  
+    // Routes
+    app.use('/api/auth', authRoutes);
+    app.use('/api/messages', messageRoutes);
+  
+    // Start server
+    server.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }).catch((error) => {
+    console.error('Failed to connect to MongoDB:', error.message);
+    process.exit(1);
+  });
