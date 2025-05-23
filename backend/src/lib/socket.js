@@ -8,11 +8,11 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
-      'https://orbit-chat.netlify.app',   // Frontend URL (Netlify)
-      'https://orbit-lq87.onrender.com',   // Backend URL (Render)
+      'https://orbit-chat.netlify.app',
+      'https://orbit-lq87.onrender.com',
     ],
     methods: ["GET", "POST"],
-    credentials: true, // Allow credentials (cookies)
+    credentials: true,
   },
 });
 
@@ -31,7 +31,6 @@ io.on("connection", (socket) => {
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   }
 
-  // Handle chat messages
   socket.on("sendMessage", async (message) => {
     try {
       const { receiverId, content } = message;
@@ -43,7 +42,6 @@ io.on("connection", (socket) => {
           timestamp: new Date(),
         });
       }
-      // Optionally save to MongoDB (handled in messageRoutes.js)
     } catch (error) {
       console.error("Error sending message:", error);
     }
